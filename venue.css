@@ -1,0 +1,151 @@
+/* ============================================================
+   VENUE — Smart Directory landing
+   Design tokens + components. Light-first, orange accent.
+   Built on Forviz design system foundations (dark variant + orange).
+   ============================================================ */
+
+/* ---- Fonts ---- */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&family=Baloo+2:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Thai:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+
+/* ---- Light theme (default) ---- */
+:root{
+  /* brand orange */
+  --accent:#F58220;
+  --accent-deep:#FC7017;
+  --accent-light:#FFA64D;
+  --accent-soft:rgba(245,130,32,.10);
+  --accent-ring:rgba(245,130,32,.30);
+  --accent-grad:linear-gradient(135deg,#FBA23E 0%,#FC7017 100%);
+
+  /* surfaces */
+  --bg:#FFFFFF;
+  --bg-tint:#FCF9F7;
+  --surface:#FFFFFF;
+  --surface-2:#F4F4FA;     /* lavender-grey feature panels */
+  --surface-3:#EFEFF6;
+  --border:#ECECF1;
+  --border-strong:#DFDFE6;
+
+  /* type */
+  --fg-1:#1B1A21;          /* near-black headings */
+  --fg-2:#55545F;
+  --fg-3:#8C8B96;
+  --on-accent:#FFFFFF;
+
+  --shadow-card:0 14px 44px -16px rgba(28,24,40,.14);
+  --shadow-soft:0 6px 20px -8px rgba(28,24,40,.10);
+  --shadow-float:0 30px 70px -24px rgba(28,24,40,.22);
+  --grain-opacity:.04;
+
+  /* type families */
+  --ff-display:'Fredoka','IBM Plex Sans Thai',system-ui,sans-serif;
+  --ff-body:'Inter','IBM Plex Sans Thai',system-ui,sans-serif;
+  --ff-thai:'IBM Plex Sans Thai','Inter',sans-serif;
+  --ff-mono:'JetBrains Mono',ui-monospace,monospace;
+
+  /* layout */
+  --page-max:1200px;
+  --nav-h:72px;
+  --ease:cubic-bezier(.22,1,.36,1);
+
+  --map-line:#E7E4EE;
+  --map-block:#F0EEF5;
+  --map-block-2:#E7E4EF;
+}
+
+[data-theme="dark"]{
+  --bg:#0B0B0D;
+  --bg-tint:#0D0D11;
+  --surface:#141418;
+  --surface-2:#15151B;
+  --surface-3:#1C1C23;
+  --border:#26262E;
+  --border-strong:#34343E;
+  --fg-1:#F4F4F5;
+  --fg-2:#A6A6AE;
+  --fg-3:#6B6B73;
+  --accent-soft:rgba(245,130,32,.14);
+  --shadow-card:0 20px 60px -22px rgba(0,0,0,.65);
+  --shadow-soft:0 10px 30px -12px rgba(0,0,0,.5);
+  --shadow-float:0 36px 90px -30px rgba(0,0,0,.75);
+  --grain-opacity:.05;
+  --map-line:#1E1E26;
+  --map-block:#16161D;
+  --map-block-2:#1C1C25;
+}
+
+/* ---- Reset / base ---- */
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  font-family:var(--ff-body);
+  background-color:var(--bg);
+  color:var(--fg-1);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+::selection{background:var(--accent-ring);color:var(--fg-1);}
+
+.wrap{max-width:var(--page-max);margin:0 auto;padding:0 32px;}
+@media(max-width:640px){.wrap{padding:0 20px;}}
+
+/* dedicated themed backdrop — some preview hosts force html/body bg transparent,
+   so the page color lives on this fixed layer instead of <body>.
+   NOTE: use background-color (not the `background` shorthand) and NO transition —
+   a transitioned `background` shorthand caches its resolved var() and won't repaint
+   when --bg changes on theme toggle. */
+.bg-layer{position:fixed;inset:0;z-index:-2;background-color:var(--bg);}
+
+.eyebrow{
+  font-family:var(--ff-body);
+  font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--fg-3);
+}
+.accent{color:var(--accent);}
+
+/* ---- Buttons ---- */
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--ff-display);font-weight:500;font-size:16px;
+  padding:13px 26px;border-radius:999px;cursor:pointer;border:1.5px solid transparent;
+  transition:transform .12s var(--ease),background .2s var(--ease),box-shadow .2s var(--ease),border-color .2s var(--ease),color .2s;
+  white-space:nowrap;
+}
+.btn:active{transform:scale(.97);}
+.btn-primary{background:var(--accent-grad);color:#fff;box-shadow:0 10px 26px -10px rgba(252,112,23,.7);}
+.btn-primary:hover{box-shadow:0 14px 34px -10px rgba(252,112,23,.85);transform:translateY(-2px);}
+.btn-ghost{background:var(--surface);color:var(--fg-1);border-color:var(--border-strong);}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent);}
+.btn-white{background:#fff;color:var(--accent-deep);}
+.btn-white:hover{transform:translateY(-2px);box-shadow:0 14px 30px -12px rgba(0,0,0,.3);}
+.btn svg{width:18px;height:18px;}
+
+/* ---- Section scaffolding ---- */
+section{position:relative;}
+.section-pad{padding:120px 0;}
+@media(max-width:760px){.section-pad{padding:80px 0;}}
+.center{text-align:center;}
+
+.section-title{
+  font-family:var(--ff-display);font-weight:600;
+  font-size:clamp(30px,4vw,46px);line-height:1.1;letter-spacing:-.01em;
+  margin:0;
+}
+
+/* reveal on scroll */
+.reveal{transition:opacity .7s var(--ease),transform .7s var(--ease);}
+html.anim-ready .reveal:not(.in){opacity:0;transform:translateY(26px);}
+@media(prefers-reduced-motion:reduce){html.anim-ready .reveal:not(.in){opacity:1;transform:none;}}
+
+/* grain overlay */
+.grain{
+  position:fixed;inset:0;pointer-events:none;z-index:1;opacity:var(--grain-opacity);
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+[data-theme="dark"] .grain{mix-blend-mode:screen;}

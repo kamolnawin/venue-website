@@ -1,0 +1,134 @@
+/* ============================================================
+   VENUE — nav + hero + device mockups
+   ============================================================ */
+
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:50;height:var(--nav-h);
+  display:flex;align-items:center;
+  background:transparent;
+  transition:background .3s var(--ease),border-color .3s var(--ease),backdrop-filter .3s;
+  border-bottom:1px solid transparent;
+}
+.nav.stuck{
+  background:color-mix(in srgb,var(--bg) 78%,transparent);
+  backdrop-filter:blur(16px) saturate(140%);
+  -webkit-backdrop-filter:blur(16px) saturate(140%);
+  border-bottom:1px solid var(--border);
+}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;width:100%;}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--ff-display);font-weight:600;font-size:22px;letter-spacing:-.01em;}
+.brand .logo{width:30px;height:30px;flex:none;}
+.nav-links{display:flex;align-items:center;gap:34px;}
+.nav-links a{font-family:var(--ff-display);font-weight:500;font-size:15px;color:var(--fg-2);position:relative;padding:4px 0;transition:color .15s;}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;height:2px;width:0;background:var(--accent);transition:width .25s var(--ease);}
+.nav-links a:hover{color:var(--fg-1);}
+.nav-links a:hover::after{width:100%;}
+.nav-right{display:flex;align-items:center;gap:18px;}
+.utc{display:flex;align-items:center;gap:7px;font-family:var(--ff-mono);font-size:12px;color:var(--fg-3);}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--accent-ring);animation:pulse 2.4s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--accent-ring);}70%{box-shadow:0 0 0 7px transparent;}100%{box-shadow:0 0 0 0 transparent;}}
+@media(max-width:880px){.nav-links,.utc{display:none;}}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;padding-top:calc(var(--nav-h) + 56px);overflow:hidden;}
+.hero-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+.hero-fade{position:absolute;left:0;right:0;bottom:0;height:240px;z-index:1;pointer-events:none;
+  background:linear-gradient(to bottom,transparent,var(--bg));}
+.hero-inner{position:relative;z-index:2;text-align:center;}
+.hero-inner::before{content:"";position:absolute;left:50%;top:-30px;transform:translateX(-50%);width:min(820px,96%);height:460px;z-index:-1;pointer-events:none;
+  background:radial-gradient(60% 58% at 50% 42%,var(--bg) 36%,color-mix(in srgb,var(--bg) 60%,transparent) 62%,transparent 80%);}
+
+.hero-wordmark{
+  font-family:var(--ff-display);font-weight:700;letter-spacing:.04em;
+  font-size:clamp(40px,7vw,82px);line-height:1;color:var(--fg-1);margin:0;
+}
+.hero-head{
+  font-family:var(--ff-display);font-weight:600;
+  font-size:clamp(28px,5.2vw,60px);line-height:1.08;letter-spacing:-.01em;
+  margin:10px 0 0;color:var(--accent);
+  text-wrap:balance;
+}
+.hero-sub{
+  font-size:clamp(15px,1.7vw,19px);color:var(--fg-2);max-width:560px;margin:22px auto 0;
+}
+.hero-cta{display:flex;gap:16px;justify-content:center;margin-top:34px;flex-wrap:wrap;}
+
+/* hero entrance */
+/* hero entrance — TRANSFORM ONLY (opacity stays 1) so a frozen/paused animation
+   clock can never leave content hidden. Slide-up plays when the clock advances. */
+.hero-inner .anim{opacity:1;transform:none;}
+@media(prefers-reduced-motion:no-preference){
+  .hero.ready .anim{transform:translateY(22px);animation:heroUp .8s var(--ease) forwards;}
+  .hero.ready .anim.d1{animation-delay:.05s;}
+  .hero.ready .anim.d2{animation-delay:.16s;}
+  .hero.ready .anim.d3{animation-delay:.27s;}
+  .hero.ready .anim.d4{animation-delay:.38s;}
+  .hero.ready .anim.d5{animation-delay:.5s;}
+}
+@keyframes heroUp{from{transform:translateY(22px);}to{transform:none;}}
+
+/* ---------- DEVICE CLUSTER ---------- */
+.cluster{position:relative;z-index:2;margin:60px auto 0;max-width:1040px;height:520px;}
+@media(max-width:980px){.cluster{height:auto;display:flex;flex-direction:column;align-items:center;gap:24px;margin-top:48px;}}
+
+.float{animation:floaty 7s ease-in-out infinite;}
+.float.b{animation-duration:8.5s;animation-delay:-2s;}
+.float.c{animation-duration:6s;animation-delay:-1s;}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+@media(prefers-reduced-motion:reduce){.float{animation:none;}}
+
+/* base map plate behind devices */
+.map-plate{
+  position:absolute;left:50%;top:14px;transform:translateX(-50%);
+  width:680px;height:360px;border-radius:24px;overflow:hidden;
+  background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-card);
+}
+@media(max-width:980px){.map-plate{position:relative;left:auto;top:auto;transform:none;width:100%;max-width:520px;height:240px;}}
+
+/* App panel (right) */
+.app-panel{
+  position:absolute;right:0;top:0;width:300px;border-radius:22px;overflow:hidden;
+  background:var(--surface);border:1px solid var(--border);box-shadow:var(--shadow-float);z-index:4;
+}
+@media(max-width:980px){.app-panel{position:relative;right:auto;top:auto;width:300px;}}
+.app-head{background:var(--accent-grad);color:#fff;padding:16px 18px;display:flex;align-items:center;gap:10px;font-family:var(--ff-display);font-weight:600;font-size:16px;}
+.app-head .tab{margin-left:auto;font-size:11px;background:rgba(255,255,255,.25);padding:3px 9px;border-radius:6px;font-weight:500;}
+.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;background:var(--surface);}
+.app-cell{padding:18px 16px;display:flex;flex-direction:column;gap:9px;border-bottom:1px solid var(--border);}
+.app-cell:nth-child(odd){border-right:1px solid var(--border);}
+.app-cell .ic{width:30px;height:30px;color:var(--fg-2);}
+.app-cell .ic svg{width:26px;height:26px;}
+.app-cell span{font-size:13px;color:var(--fg-2);font-weight:500;}
+.app-search{display:flex;align-items:center;gap:8px;padding:13px 16px;background:var(--surface);}
+.app-search .field{flex:1;display:flex;align-items:center;gap:7px;background:var(--surface-2);border-radius:8px;padding:8px 11px;color:var(--fg-3);font-size:12px;}
+.app-search .field svg{width:14px;height:14px;}
+.app-search .flag{width:30px;height:24px;border-radius:5px;background:linear-gradient(#A51931 33%,#fff 33% 66%,#2D2A4A 66%);} /* TH flag-ish */
+
+/* Kiosk (left) */
+.kiosk{position:absolute;left:18px;top:96px;width:150px;z-index:3;}
+@media(max-width:980px){.kiosk{position:relative;left:auto;top:auto;}}
+.kiosk-screen{background:#15151b;border-radius:14px;padding:8px;box-shadow:var(--shadow-float);}
+.kiosk-glass{background:var(--surface);border-radius:8px;overflow:hidden;aspect-ratio:9/15;display:flex;flex-direction:column;}
+.kiosk-top{display:flex;align-items:center;justify-content:space-between;padding:7px 9px;font-size:8px;color:var(--fg-3);font-family:var(--ff-mono);}
+.kiosk-map{flex:1;position:relative;background:var(--surface-2);}
+.kiosk-stand{width:30px;height:46px;background:linear-gradient(#1d1d24,#101015);margin:0 auto;border-radius:0 0 5px 5px;}
+.kiosk-base{width:78px;height:8px;background:#0d0d11;border-radius:6px;margin:-2px auto 0;}
+
+/* Phone */
+.phone{position:absolute;left:150px;top:208px;width:118px;z-index:5;}
+@media(max-width:980px){.phone{position:relative;left:auto;top:auto;}}
+.phone-body{background:#15151b;border-radius:20px;padding:6px;box-shadow:var(--shadow-float);}
+.phone-screen{background:var(--surface);border-radius:15px;overflow:hidden;aspect-ratio:9/19;display:flex;flex-direction:column;}
+.phone-notch{height:14px;display:flex;justify-content:center;}
+.phone-notch::after{content:"";width:40px;height:5px;background:#15151b;border-radius:0 0 8px 8px;}
+.phone-map{flex:1;background:var(--surface-2);position:relative;}
+
+/* small pin used in mockups */
+.pin{position:absolute;width:22px;height:22px;border-radius:50% 50% 50% 0;background:var(--accent);transform:rotate(-45deg);box-shadow:0 4px 10px -2px rgba(252,112,23,.6);}
+.pin::after{content:"";position:absolute;inset:6px;background:#fff;border-radius:50%;}
+.you-here{position:absolute;font-size:8px;font-weight:600;background:var(--accent);color:#fff;padding:2px 6px;border-radius:5px;font-family:var(--ff-display);white-space:nowrap;}
+
+/* floating mini chips around cluster */
+.chip-badge{position:absolute;display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:7px 13px;font-size:12px;font-weight:500;color:var(--fg-2);box-shadow:var(--shadow-soft);z-index:6;}
+.chip-badge svg{width:15px;height:15px;color:var(--accent);}

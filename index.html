@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venue — Smart Directory</title>
+<script>try{var _t=localStorage.getItem('venue-theme');if(_t)document.documentElement.dataset.theme=_t;}catch(e){}</script>
+<link rel="stylesheet" href="venue-editorial.css?v=2">
+<link rel="stylesheet" href="venue-editorial-sections.css?v=2">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/lucide@0.468.0"></script>
+<script src="image-slot.js"></script>
+</head>
+<body>
+<template id="__bundler_thumbnail">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1E1E24"/><path d="M28 54 L44 70" stroke="#F5F4F2" stroke-width="9" stroke-linecap="round"/><path d="M44 70 L74 30" stroke="#FF6A2C" stroke-width="9" stroke-linecap="round"/></svg>
+</template>
+
+<div class="bg-layer"></div>
+<div class="grain"></div>
+<div class="scroll-prog" id="scrollProg" aria-hidden="true"></div>
+
+<!-- ===== LOADING INTRO ===== -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="pl-inner">
+    <div class="pl-mark">
+      <img class="pl-logo logo-light" src="assets/venue-logo-brand.svg" alt="venue">
+      <img class="pl-logo logo-dark" src="assets/venue-logo-dark.svg" alt="venue">
+    </div>
+    <div class="pl-bottom">
+      <div class="pl-bar-track"><i class="pl-bar" id="plBar"></i></div>
+      <div class="pl-count"><span id="plNum">0</span><span class="pl-pct">%</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== NAV ===== -->
+<nav class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="venue">
+      <img class="brand-logo logo-light" src="assets/venue-logo-brand.svg" alt="venue" style="height: 53px">
+      <img class="brand-logo logo-dark" src="assets/venue-logo-dark.svg" alt="venue" style="width: 143px; height: 53px">
+    </a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#features">Features</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark / light" title="Toggle theme">
+        <i data-lucide="moon" class="tt-moon"></i>
+        <i data-lucide="sun" class="tt-sun"></i>
+      </button>
+      <a href="#contact" class="btn btn-nav" style="padding:10px 20px;">Contact us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero hero-frame" id="top" data-screen-label="hero">
+  <div class="hf-sticky">
+    <div class="hf-frame" id="hfFrame">
+      <div class="hf-anim" aria-hidden="true"></div>
+      <video class="hf-bends hero-vid" id="hfBends" src="assets/hero-clip.mp4" poster="assets/hero-ambient.png" autoplay muted loop playsinline aria-hidden="true"></video>
+      <div class="device-stage" aria-hidden="false">
+        <div class="dev dev-screen">
+          <img src="assets/dev-floorplan.avif" alt="Venue floor plan on a landscape touchscreen">
+        </div>
+      </div>
+    </div>
+    <div class="hf-head" id="hfHead">
+      <h1 class="hero-dev-display" aria-label="Effortless navigation">
+        <span class="l1">Effortless</span>
+        <span class="rotator" aria-hidden="true">
+          <span class="rot-word is-active">Navigation</span>
+          <span class="rot-word">Wayfinding</span>
+          <span class="rot-word">Discovery</span>
+          <span class="rot-word">Directories</span>
+        </span>
+      </h1>
+      <p class="hero-dev-sub">One platform — kiosk, screen, and mobile. Every visitor, guided.</p>
+      <div class="hero-dev-cta">
+        <a href="#work" class="hero-demo"><i data-lucide="play"></i> View Demo</a>
+        <a href="#contact" class="btn btn-accent">Contact Us <i data-lucide="arrow-right"></i></a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="hero-intro" data-screen-label="hero-intro">
+  <div class="crosslines hero-cl" aria-hidden="true">
+    <svg preserveAspectRatio="none" viewBox="0 0 100 100"><line x1="-5" y1="14" x2="105" y2="2"></line><line x1="-5" y1="2" x2="105" y2="92"></line><line x1="42" y1="-5" x2="60" y2="105"></line></svg>
+  </div>
+  <div class="wrap">
+    <p class="lead-mixed reveal">Venue is trusted to deliver <strong>world-leading indoor maps,</strong> directories, <strong>and wayfinding</strong> for malls, campuses and event spaces. We <strong>simplify navigation</strong> and amplify customer satisfaction.</p>
+  </div>
+</section>
+
+<!-- ===== BIG IDEA band ===== -->
+<section class="bigidea" data-screen-label="big-idea">
+  <div class="wrap">
+    <div class="bigidea-stage">
+      <div class="bigidea-glow" aria-hidden="true"></div>
+      <div class="bigidea-card">
+        <video class="bigidea-video" src="assets/tap-find-go.mp4" autoplay muted loop playsinline></video>
+      </div>
+      <h2 class="bigidea-words" aria-label="Tap. Find. Go.">
+        <span class="bw">Tap.</span>
+        <span class="bw">Find.</span>
+        <span class="bw">Go.</span>
+      </h2>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPLORE (static index) ===== -->
+<section class="explore" data-screen-label="explore">
+  <div class="wrap">
+    <div class="sec-label reveal"><span class="num">/ Explore</span><span class="tx">What every visitor can do</span><span class="ln"></span></div>
+    <div class="explore-grid reveal-stagger">
+      <article class="ex-item"><span class="ex-idx">01</span><div class="ex-ic"><i data-lucide="search"></i></div><h3>Search</h3><p>Search for desired shops &amp; stores.</p></article>
+      <article class="ex-item"><span class="ex-idx">02</span><div class="ex-ic"><i data-lucide="shopping-bag"></i></div><h3>Shop &amp; Dine Finder</h3><p>Navigate to your favourite shops and restaurants.</p></article>
+      <article class="ex-item"><span class="ex-idx">03</span><div class="ex-ic"><i data-lucide="map-pin"></i></div><h3>Finding Amenities</h3><p>Search for various amenities.</p></article>
+      <article class="ex-item"><span class="ex-idx">04</span><div class="ex-ic"><i data-lucide="badge-percent"></i></div><h3>Promo Explorer</h3><p>View interesting promotions along with special offers.</p></article>
+      <article class="ex-item"><span class="ex-idx">05</span><div class="ex-ic"><i data-lucide="navigation"></i></div><h3>Activity Navigator</h3><p>Navigate to interesting activities &amp; events.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROJECTS MARQUEE ===== -->
+<section class="proj-sec" id="work" data-screen-label="work">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Selected<br>projects</h2>
+      <a href="#" class="ulink">View all projects <i data-lucide="arrow-up-right"></i></a>
+    </div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track mq-a">
+      <article class="proj-card"><span class="idx">01</span><img class="proj-photo" src="assets/mall-atrium.jpg" alt="" loading="lazy"><div class="meta"><span class="t">ONE BANGKOK</span><span class="k">Smart Directory</span></div></article>
+      <article class="proj-card"><span class="idx">02</span><img class="proj-photo" src="assets/mall-directory.jpg" alt="" loading="lazy"><div class="meta"><span class="t">ONE SIAM</span><span class="k">Smart Directory</span></div></article>
+      <article class="proj-card"><span class="idx">03</span><img class="proj-photo" src="assets/mall-riverside.jpg" alt="" loading="lazy"><div class="meta"><span class="t">ICONSIAM</span><span class="k">Indoor Map</span></div></article>
+      <article class="proj-card"><span class="idx">04</span><img class="proj-photo" src="assets/mall-escalator.jpg" alt="" loading="lazy"><div class="meta"><span class="t">Siam Paragon</span><span class="k">Indoor Map</span></div></article>
+      <article class="proj-card" aria-hidden="true"><span class="idx">01</span><img class="proj-photo" src="assets/mall-atrium.jpg" alt="" loading="lazy"><div class="meta"><span class="t">ONE BANGKOK</span><span class="k">Smart Directory</span></div></article>
+      <article class="proj-card" aria-hidden="true"><span class="idx">02</span><img class="proj-photo" src="assets/mall-directory.jpg" alt="" loading="lazy"><div class="meta"><span class="t">ONE SIAM</span><span class="k">Smart Directory</span></div></article>
+      <article class="proj-card" aria-hidden="true"><span class="idx">03</span><img class="proj-photo" src="assets/mall-riverside.jpg" alt="" loading="lazy"><div class="meta"><span class="t">ICONSIAM</span><span class="k">Indoor Map</span></div></article>
+      <article class="proj-card" aria-hidden="true"><span class="idx">04</span><img class="proj-photo" src="assets/mall-escalator.jpg" alt="" loading="lazy"><div class="meta"><span class="t">Siam Paragon</span><span class="k">Indoor Map</span></div></article>
+    </div>
+  </div>
+  <div class="marquee">
+    <div class="marquee-track mq-b">
+      <article class="proj-card"><span class="idx">05</span><img class="proj-photo" src="assets/mall-totem.jpg" alt="" loading="lazy"><div class="meta"><span class="t">EM DISTRICT</span><span class="k">Smart Directory</span></div></article>
+      <article class="proj-card"><span class="idx">06</span><img class="proj-photo" src="assets/mall-corridor.jpg" alt="" loading="lazy"><div class="meta"><span class="t">Future Park</span><span class="k">Wayfinding</span></div></article>
+      <article class="proj-card"><span class="idx">07</span><img class="proj-photo" src="assets/mall-atrium.jpg" alt="" loading="lazy"><div class="meta"><span class="t">Terminal 21</span><span class="k">Indoor Map</span></div></article>
+      <article class="proj-card"><span class="idx">08</span><img class="proj-photo" src="assets/mall-escalator.jpg" alt="" loading="lazy"><div class="meta"><span class="t">EMSPHERE</span><span class="k">Wayfinding</span></div></article>
+      <article class="proj-card" aria-hidden="true"><span class="idx">05</span><img class="proj-photo" src="assets/mall-totem.jpg" alt="" loading="lazy"><div class="meta"><span class="t">EM DISTRICT</span><span class="k">Smart Directory</span></div></article>
+      <article class="proj-card" aria-hidden="true"><span class="idx">06</span><img class="proj-photo" src="assets/mall-corridor.jpg" alt="" loading="lazy"><div class="meta"><span class="t">Future Park</span><span class="k">Wayfinding</span></div></article>
+      <article class="proj-card" aria-hidden="true"><span class="idx">07</span><img class="proj-photo" src="assets/mall-atrium.jpg" alt="" loading="lazy"><div class="meta"><span class="t">Terminal 21</span><span class="k">Indoor Map</span></div></article>
+      <article class="proj-card" aria-hidden="true"><span class="idx">08</span><img class="proj-photo" src="assets/mall-escalator.jpg" alt="" loading="lazy"><div class="meta"><span class="t">EMSPHERE</span><span class="k">Wayfinding</span></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRUSTED-BY ===== -->
+<section class="trust">
+  <div class="wrap">
+    <p class="lead-mixed lead reveal"><strong>An established partner</strong> for Thailand's leading destinations — trusted to guide millions of visitors across flagship malls and mixed-use districts. <a href="#work" class="accent">See the work.</a></p>
+  </div>
+  <div class="logo-mq">
+    <div class="logo-track">
+      <span class="lg serif">Siam Paragon</span><span class="lg">ONE SIAM</span><span class="lg serif">ICONSIAM</span><span class="lg serif">ONE BANGKOK</span><span class="lg serif">EM DISTRICT</span><span class="lg">EMSPHERE</span><span class="lg">FUTURE PARK</span><span class="lg serif">Jungceylon</span><span class="lg">THE MALL</span><span class="lg">SEACON SQUARE</span>
+      <span class="lg serif" aria-hidden="true">Siam Paragon</span><span class="lg" aria-hidden="true">ONE SIAM</span><span class="lg serif" aria-hidden="true">ICONSIAM</span><span class="lg serif" aria-hidden="true">ONE BANGKOK</span><span class="lg serif" aria-hidden="true">EM DISTRICT</span><span class="lg" aria-hidden="true">EMSPHERE</span><span class="lg" aria-hidden="true">FUTURE PARK</span><span class="lg serif" aria-hidden="true">Jungceylon</span><span class="lg" aria-hidden="true">THE MALL</span><span class="lg" aria-hidden="true">SEACON SQUARE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KEY FEATURES (interactive list) ===== -->
+<section class="kf" id="features" data-screen-label="key-features">
+  <div class="wrap">
+    <div class="sec-label reveal"><span class="num">01 — 06</span><span class="tx">Key Features</span><span class="ln"></span></div>
+    <div class="kf-grid">
+      <div class="kf-list reveal-stagger">
+        <div class="kf-item active" tabindex="0">
+          <span class="ki">01</span>
+          <div><span class="kt">Web-based interactive navigation</span>
+            <p class="kdesc">Seamless navigation with interactive, web-based maps that guide visitors to their destinations using clear visual routes — smooth wayfinding in malls, campuses, and event spaces.</p>
+          </div>
+          <i class="kx" data-lucide="arrow-right"></i>
+        </div>
+        <div class="kf-item" tabindex="0">
+          <span class="ki">02</span>
+          <div><span class="kt">Search and Filters</span>
+            <p class="kdesc">Quickly find locations, services, or amenities with advanced search and category filters. Intelligent suggestions and autocomplete ensure fast, accurate results.</p>
+          </div>
+          <i class="kx" data-lucide="arrow-right"></i>
+        </div>
+        <div class="kf-item" tabindex="0">
+          <span class="ki">03</span>
+          <div><span class="kt">Customizable Design</span>
+            <p class="kdesc">Tailor the map to your brand identity with custom colors, icons, and themes. Highlight key areas, events, or promotions for a personalized, cohesive experience.</p>
+          </div>
+          <i class="kx" data-lucide="arrow-right"></i>
+        </div>
+        <div class="kf-item" tabindex="0">
+          <span class="ki">04</span>
+          <div><span class="kt">Landmark-Based Directions</span>
+            <p class="kdesc">Intuitive directions using recognizable landmarks like well-known stores or entry points — natural for first-time and returning visitors alike.</p>
+          </div>
+          <i class="kx" data-lucide="arrow-right"></i>
+        </div>
+        <div class="kf-item" tabindex="0">
+          <span class="ki">05</span>
+          <div><span class="kt">Continue on your Mobile</span>
+            <p class="kdesc">Switch devices without losing progress. Start on a kiosk and continue on mobile via QR code or link, with uninterrupted guidance through the venue.</p>
+          </div>
+          <i class="kx" data-lucide="arrow-right"></i>
+        </div>
+        <div class="kf-item" tabindex="0">
+          <span class="ki">06</span>
+          <div><span class="kt">Kiosk Performance Analytics</span>
+            <p class="kdesc">Track kiosk usage, search trends, and routing patterns with an intuitive dashboard. Real-time visualizations help optimize the visitor experience.</p>
+          </div>
+          <i class="kx" data-lucide="arrow-right"></i>
+        </div>
+      </div>
+      <div class="kf-preview reveal d1">
+        <div class="frame show"><img class="kf-photo" src="assets/kf-webnav.png" alt="" loading="lazy"><div class="pv-cap">Web-based navigation</div></div>
+        <div class="frame"><img class="kf-photo" src="assets/kf-search.png" alt="" loading="lazy"><div class="pv-cap">Search &amp; filters</div></div>
+        <div class="frame"><img class="kf-photo" src="assets/kf-custom.png" alt="" loading="lazy"><div class="pv-cap">Customizable design</div></div>
+        <div class="frame"><img class="kf-photo" src="assets/kf-landmark.png" alt="" loading="lazy"><div class="pv-cap">Landmark-based directions</div></div>
+        <div class="frame"><img class="kf-photo" src="assets/kf-mobile.png" alt="" loading="lazy"><div class="pv-cap">Continue on mobile</div></div>
+        <div class="frame"><img class="kf-photo" src="assets/kf-analytics.png" alt="" loading="lazy"><div class="pv-cap">Kiosk analytics</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAPABILITY GRID ===== -->
+<section class="caps" id="capabilities" data-screen-label="capabilities">
+  <div class="wrap">
+    <div class="sec-label reveal"><span class="num">+</span><span class="tx">More capabilities</span><span class="ln"></span></div>
+    <div class="caps-grid reveal-stagger">
+      <div class="cap-cell"><div class="ci"><i data-lucide="cloud-off"></i></div><h3>Offline mode</h3><p>Navigate your space even in areas with limited or no internet connectivity.</p></div>
+      <div class="cap-cell"><div class="ci"><i data-lucide="monitor-smartphone"></i></div><h3>Cross-platform</h3><p>A web-based solution that integrates with any platform — no extra software, instant access.</p></div>
+      <div class="cap-cell"><div class="ci"><i data-lucide="settings-2"></i></div><h3>Render priority</h3><p>Control the display of shop names or logos at different zoom levels with fine-grained visibility.</p></div>
+      <div class="cap-cell"><div class="ci"><i data-lucide="box"></i></div><h3>3D render</h3><p>Navigate with a clear, immersive 3D view for better orientation and understanding.</p></div>
+      <div class="cap-cell"><div class="ci"><i data-lucide="accessibility"></i></div><h3>Accessibility</h3><p>Wheelchair-friendly routes and multi-language options, built for inclusivity.</p></div>
+      <div class="cap-cell" style="display:flex;align-items:flex-end;"><a href="#contact" class="ulink">Talk to our team <i data-lucide="arrow-up-right"></i></a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="cta" id="contact" data-screen-label="cta">
+  <div class="cta-box reveal">
+    <canvas class="cta-canvas" id="ctaCanvas" aria-hidden="true"></canvas>
+    <div class="cta-inner">
+      <h2>Let's <span style="color:#fe6f33;">talk</span><span style="color:#fe733a;">.</span></h2>
+      <p>Start your journey today with a free trial and experience the difference firsthand.</p>
+      <a href="#" class="btn btn-white" style="padding:15px 32px;font-size:16px;">Contact Us <i data-lucide="arrow-right"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer" data-screen-label="footer">
+  <div class="wrap">
+    <div class="f-top">
+      <div>
+        <p class="f-tag">Smart Directory.<br>The Smoother Steps.</p>
+      </div>
+      <div class="f-col">
+        <h4>Explore</h4>
+        <a href="#work">Work</a>
+        <a href="#features">Features</a>
+        <a href="#capabilities">Capabilities</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="f-col">
+        <h4>Contact</h4>
+        <a href="mailto:hello@venue.in.th">hello@venue.in.th</a>
+        <p>Bangkok, Thailand</p>
+        <a href="#">LinkedIn</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+    <div class="f-bar">
+      <span>Forviz co., Ltd © 2026 — All rights reserved</span>
+      <span>UTC+7 · Bangkok</span>
+    </div>
+  </div>
+  <div class="f-mark" aria-hidden="true">venue</div>
+</footer>
+
+<div id="tweaks-root"></div>
+
+<script src="editorial.build3.js"></script>
+<script src="cta-cloud.js"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="app-editorial.jsx"></script>
+</body>
+</html>
