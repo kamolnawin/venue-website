@@ -152,8 +152,8 @@ html.anim-ready .reveal-stagger:not(.in) > *{opacity:0;transform:translateY(32px
 .logo-dark{display:none;}
 [data-theme="light"] .logo-light{display:none;}
 [data-theme="light"] .logo-dark{display:block;}
-.nav-links{display:flex;align-items:center;gap:30px;}
-.nav-links a{font-size:15px;color:rgba(255,255,255,.78);position:relative;padding:3px 0;transition:color .15s;}
+.nav-links{display:flex;align-items:center;gap:26px;}
+.nav-links a{font-size:14px;color:rgba(255,255,255,.78);position:relative;padding:3px 0;transition:color .15s;}
 .nav.stuck .nav-links a{color:var(--ink-2);}
 .nav-links a::after{content:"";position:absolute;left:0;bottom:-2px;height:1.5px;width:0;background:var(--accent);transition:width .25s var(--ease);}
 .nav-links a:hover{color:#fff;}

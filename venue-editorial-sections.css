@@ -213,14 +213,18 @@ html.loaded .hero-route .hr-pin{animation:hrPop .5s 3.5s var(--ease-apple) forwa
 /* ---------- TRUSTED-BY ---------- */
 .trust{padding:0 0 96px;}
 .trust .lead{max-width:760px;margin:0 0 48px;margin-left:auto;text-align:right;}
+.trust .lead a{white-space:nowrap;}
 @media(max-width:720px){.trust .lead{text-align:left;}}
 .logo-mq{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
 .logo-track{display:flex;gap:30px;width:max-content;align-items:stretch;animation:mqL 44s linear infinite;}
 @media(prefers-reduced-motion:reduce){.logo-track{animation:none;}}
-.logo-track .lg{display:flex;align-items:center;justify-content:center;min-width:190px;height:84px;padding:0 30px;background:var(--paper);border:1px solid var(--line);border-radius:10px;
-  font-family:'Inter',sans-serif;font-weight:600;font-size:18px;letter-spacing:.01em;color:var(--ink-2);white-space:nowrap;transition:color .2s,border-color .2s;}
-.logo-track .lg.serif{font-family:Georgia,serif;font-style:italic;}
-.logo-track .lg:hover{color:var(--ink);border-color:var(--accent);}
+.logo-track .lg{display:flex;align-items:center;justify-content:center;min-width:170px;height:84px;padding:0 30px;background:transparent;border:none;border-radius:0;
+  transition:opacity .2s;}
+.logo-track .lg img{height:34px;width:auto;max-width:150px;object-fit:contain;
+  filter:grayscale(1) brightness(0) invert(1);opacity:.6;transition:opacity .2s;}
+[data-theme="light"] .logo-track .lg img{filter:grayscale(1) brightness(0);opacity:.55;}
+.logo-track .lg:hover{border-color:transparent;}
+.logo-track .lg:hover img{opacity:1;}
 
 /* ---------- KEY FEATURES — interactive hover list ---------- */
 .kf{padding:120px 0;background:var(--bg-2);}
